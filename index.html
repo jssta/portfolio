@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureDevOps | DevSecOps Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            light: '#3b82f6',
+                            dark: '#2563eb'
+                        },
+                        secondary: {
+                            light: '#10b981',
+                            dark: '#059669'
+                        },
+                        danger: {
+                            light: '#ef4444',
+                            dark: '#dc2626'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .workflow-step {
+            position: relative;
+        }
+        .workflow-step:not(:last-child):after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 50px;
+            background-color: #3b82f6;
+        }
+        .dark .workflow-step:not(:last-child):after {
+            background-color: #2563eb;
+        }
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+        .dark .tooltip .tooltiptext {
+            background-color: #111;
+        }
+        .security-badge {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+            }
+        }
+        .dark .security-badge {
+            animation: pulse-dark 2s infinite;
+        }
+        @keyframes pulse-dark {
+            0% {
+                box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(220, 38, 38, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(220, 38, 38, 0);
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-300">
+    <!-- Header -->
+    <header class="bg-white dark:bg-gray-800 shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-shield-alt text-2xl text-primary-light dark:text-primary-dark"></i>
+                <h1 class="text-xl font-bold">Secure<span class="text-primary-light dark:text-primary-dark">DevOps</span></h1>
+            </div>
+            <nav class="hidden md:flex space-x-8">
+                <a href="#about" class="hover:text-primary-light dark:hover:text-primary-dark transition">About</a>
+                <a href="#projects" class="hover:text-primary-light dark:hover:text-primary-dark transition">Projects</a>
+                <a href="#workflow" class="hover:text-primary-light dark:hover:text-primary-dark transition">Workflow</a>
+                <a href="#contact" class="hover:text-primary-light dark:hover:text-primary-dark transition">Contact</a>
+            </nav>
+            <div class="flex items-center space-x-4">
+                <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+                    <i class="fas fa-moon dark:hidden"></i>
+                    <i class="fas fa-sun hidden dark:block"></i>
+                </button>
+                <button class="md:hidden" id="mobile-menu-button">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-gray-800 px-4 py-2 shadow-lg">
+            <a href="#about" class="block py-2 hover:text-primary-light dark:hover:text-primary-dark transition">About</a>
+            <a href="#projects" class="block py-2 hover:text-primary-light dark:hover:text-primary-dark transition">Projects</a>
+            <a href="#workflow" class="block py-2 hover:text-primary-light dark:hover:text-primary-dark transition">Workflow</a>
+            <a href="#contact" class="block py-2 hover:text-primary-light dark:hover:text-primary-dark transition">Contact</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-blue-500 to-indigo-600 dark:from-blue-600 dark:to-indigo-700 text-white py-20">
+        <div class="container mx-auto px-4 text-center">
+            <div class="max-w-3xl mx-auto">
+                <span class="inline-block px-3 py-1 mb-4 text-xs font-semibold bg-white dark:bg-gray-800 text-primary-light dark:text-primary-dark rounded-full">SECURITY FIRST APPROACH</span>
+                <h1 class="text-4xl md:text-5xl font-bold mb-6">Automating Security in DevOps Pipelines</h1>
+                <p class="text-xl mb-8">Building secure, scalable, and automated CI/CD pipelines with security baked in from the start.</p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="#projects" class="bg-white text-primary-light dark:text-primary-dark px-6 py-3 rounded-lg font-semibold hover:bg-opacity-90 transition">View Projects</a>
+                    <a href="#contact" class="border-2 border-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:bg-opacity-10 transition">Contact Me</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-gray-50 dark:bg-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4">About My DevSecOps Approach</h2>
+                <div class="w-20 h-1 bg-primary-light dark:bg-primary-dark mx-auto"></div>
+            </div>
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h3 class="text-2xl font-semibold mb-4">Security as Code</h3>
+                    <p class="mb-6 text-lg">I integrate security practices into the DevOps workflow, ensuring that security is not an afterthought but an integral part of the development lifecycle.</p>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-secondary-light dark:text-secondary-dark mt-1 mr-3"></i>
+                            <p>Automated security testing in CI/CD pipelines</p>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-secondary-light dark:text-secondary-dark mt-1 mr-3"></i>
+                            <p>Infrastructure as Code with security policies</p>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-secondary-light dark:text-secondary-dark mt-1 mr-3"></i>
+                            <p>Continuous compliance monitoring</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md">
+                        <i class="fas fa-lock text-3xl text-primary-light dark:text-primary-dark mb-4"></i>
+                        <h4 class="font-semibold mb-2">Secure Coding</h4>
+                        <p class="text-sm">Implementing secure coding practices and automated SAST tools</p>
+                    </div>
+                    <div class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md">
+                        <i class="fas fa-robot text-3xl text-primary-light dark:text-primary-dark mb-4"></i>
+                        <h4 class="font-semibold mb-2">Automation</h4>
+                        <p class="text-sm">Automating security checks to prevent human error</p>
+                    </div>
+                    <div class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md">
+                        <i class="fas fa-shield-alt text-3xl text-primary-light dark:text-primary-dark mb-4"></i>
+                        <h4 class="font-semibold mb-2">Threat Modeling</h4>
+                        <p class="text-sm">Proactive identification of potential security threats</p>
+                    </div>
+                    <div class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md">
+                        <i class="fas fa-chart-line text-3xl text-primary-light dark:text-primary-dark mb-4"></i>
+                        <h4 class="font-semibold mb-2">Monitoring</h4>
+                        <p class="text-sm">Real-time security monitoring and alerting</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4">DevSecOps Projects</h2>
+                <div class="w-20 h-1 bg-primary-light dark:bg-primary-dark mx-auto"></div>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden border border-gray-200 dark:border-gray-700 hover:shadow-xl transition">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Automated Security Pipeline" class="w-full h-48 object-cover">
+                        <div class="absolute top-4 right-4">
+                            <span class="security-badge bg-danger-light dark:bg-danger-dark text-white px-3 py-1 rounded-full text-xs font-bold">SECURITY</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Automated Security Pipeline</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">Integrated SAST, DAST, and SCA tools into CI/CD pipeline with automated vulnerability scanning.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-xs">GitHub Actions</span>
+                            <span class="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-xs">SonarQube</span>
+                            <span class="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-xs">OWASP ZAP</span>
+                            <span class="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-xs">Dependabot</span>
+                        </div>
+                        <a href="#" class="text-primary-light dark:text-primary-dark font-semibold hover:underline">View Case Study →</a>
+                    </div>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden border border-gray-200 dark:border-gray-700 hover:shadow-xl transition">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1624953587687-daf255b6b80a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Infrastructure Security" class="w-full h-48 object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Secure Infrastructure as Code</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">Implemented Terraform with security policies and automated compliance checks for cloud infrastructure.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-xs">Terraform</span>
+                            <span class="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-xs">AWS</span>
+                            <span class="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-xs">Checkov</span>
+                            <span class="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-xs">Sentinel</span>
+                        </div>
+                        <a href="#" class="text-primary-light dark:text-primary-dark font-semibold hover:underline">View Case Study →</a>
+                    </div>
+                </div>
+                
+                <!-- Project 3 -->
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden border border-gray-200 dark:border-gray-700 hover:shadow-xl transition">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Container Security" class="w-full h-48 object-cover">
+                        <div class="absolute top-4 right-4">
+                            <span class="security-badge bg-danger-light dark:bg-danger-dark text-white px-3 py-1 rounded-full text-xs font-bold">SECURITY</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Container Security Framework</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">Built a comprehensive security framework for containerized applications with runtime protection.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-xs">Docker</span>
+                            <span class="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-xs">Kubernetes</span>
+                            <span class="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-xs">Falco</span>
+                            <span class="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-xs">Trivy</span>
+                        </div>
+                        <a href="#" class="text-primary-light dark:text-primary-dark font-semibold hover:underline">View Case Study →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Workflow Section -->
+    <section id="workflow" class="py-20 bg-gray-50 dark:bg-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4">DevSecOps Workflow</h2>
+                <p class="max-w-2xl mx-auto">Visualizing the security integration at every stage of the development lifecycle</p>
+                <div class="w-20 h-1 bg-primary-light dark:bg-primary-dark mx-auto mt-4"></div>
+            </div>
+            
+            <div class="max-w-4xl mx-auto">
+                <!-- Workflow Visualization -->
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-8 text-center">
+                    <!-- Step 1 -->
+                    <div class="workflow-step">
+                        <div class="bg-white dark:bg-gray-700 p-6 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4 shadow-lg">
+                            <i class="fas fa-code text-3xl text-primary-light dark:text-primary-dark"></i>
+                        </div>
+                        <h3 class="font-bold mb-2">1. Secure Coding</h3>
+                        <p class="text-sm">Pre-commit hooks with security linters</p>
+                        <div class="tooltip mt-2">
+                            <i class="fas fa-info-circle text-gray-400"></i>
+                            <span class="tooltiptext">Using tools like Semgrep, GitLeaks for secrets detection</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 2 -->
+                    <div class="workflow-step">
+                        <div class="bg-white dark:bg-gray-700 p-6 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4 shadow-lg">
+                            <i class="fas fa-cogs text-3xl text-primary-light dark:text-primary-dark"></i>
+                        </div>
+                        <h3 class="font-bold mb-2">2. Build & Test</h3>
+                        <p class="text-sm">SAST, SCA, and dependency checks</p>
+                        <div class="tooltip mt-2">
+                            <i class="fas fa-info-circle text-gray-400"></i>
+                            <span class="tooltiptext">Tools: SonarQube, Snyk, OWASP Dependency-Check</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 3 -->
+                    <div class="workflow-step">
+                        <div class="bg-white dark:bg-gray-700 p-6 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4 shadow-lg">
+                            <i class="fas fa-box-open text-3xl text-primary-light dark:text-primary-dark"></i>
+                        </div>
+                        <h3 class="font-bold mb-2">3. Artifact Security</h3>
+                        <p class="text-sm">Container scanning, SBOM generation</p>
+                        <div class="tooltip mt-2">
+                            <i class="fas fa-info-circle text-gray-400"></i>
+                            <span class="tooltiptext">Trivy, Grype for vulnerability scanning</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 4 -->
+                    <div class="workflow-step">
+                        <div class="bg-white dark:bg-gray-700 p-6 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4 shadow-lg">
+                            <i class="fas fa-cloud text-3xl text-primary-light dark:text-primary-dark"></i>
+                        </div>
+                        <h3 class="font-bold mb-2">4. Deployment</h3>
+                        <p class="text-sm">IaC scanning, policy enforcement</p>
+                        <div class="tooltip mt-2">
+                            <i class="fas fa-info-circle text-gray-400"></i>
+                            <span class="tooltiptext">Checkov, Terrascan for infrastructure security</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 5 -->
+                    <div class="workflow-step">
+                        <div class="bg-white dark:bg-gray-700 p-6 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4 shadow-lg">
+                            <i class="fas fa-shield-alt text-3xl text-primary-light dark:text-primary-dark"></i>
+                        </div>
+                        <h3 class="font-bold mb-2">5. Runtime Protection</h3>
+                        <p class="text-sm">WAF, RASP, monitoring</p>
+                        <div class="tooltip mt-2">
+                            <i class="fas fa-info-circle text-gray-400"></i>
+                            <span class="tooltiptext">Falco, Sysdig for runtime security</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Detailed Workflow -->
+                <div class="mt-16 bg-white dark:bg-gray-700 rounded-xl shadow-lg p-6">
+                    <h3 class="text-xl font-bold mb-6 text-center">Automated Security Workflow Details</h3>
+                    <div class="space-y-6">
+                        <div class="flex flex-col md:flex-row gap-6">
+                            <div class="md:w-1/3 bg-gray-50 dark:bg-gray-600 p-4 rounded-lg">
+                                <h4 class="font-semibold mb-2 flex items-center">
+                                    <i class="fas fa-code-branch mr-2 text-primary-light dark:text-primary-dark"></i>
+                                    Code Phase
+                                </h4>
+                                <ul class="space-y-2 text-sm">
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check text-secondary-light dark:text-secondary-dark mt-1 mr-2"></i>
+                                        <span>Pre-commit hooks with security linters</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check text-secondary-light dark:text-secondary-dark mt-1 mr-2"></i>
+                                        <span>Secrets detection in git history</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check text-secondary-light dark:text-secondary-dark mt-1 mr-2"></i>
+                                        <span>IDE security plugins</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="md:w-1/3 bg-gray-50 dark:bg-gray-600 p-4 rounded-lg">
+                                <h4 class="font-semibold mb-2 flex items-center">
+                                    <i class="fas fa-tasks mr-2 text-primary-light dark:text-primary-dark"></i>
+                                    Build Phase
+                                </h4>
+                                <ul class="space-y-2 text-sm">
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check text-secondary-light dark:text-secondary-dark mt-1 mr-2"></i>
+                                        <span>Static Application Security Testing (SAST)</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check text-secondary-light dark:text-secondary-dark mt-1 mr-2"></i>
+                                        <span>Software Composition Analysis (SCA)</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check text-secondary-light dark:text-secondary-dark mt-1 mr-2"></i>
+                                        <span>License compliance checks</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="md:w-1/3 bg-gray-50 dark:bg-gray-600 p-4 rounded-lg">
+                                <h4 class="font-semibold mb-2 flex items-center">
+                                    <i class="fas fa-rocket mr-2 text-primary-light dark:text-primary-dark"></i>
+                                    Deploy Phase
+                                </h4>
+                                <ul class="space-y-2 text-sm">
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check text-secondary-light dark:text-secondary-dark mt-1 mr-2"></i>
+                                        <span>Infrastructure as Code scanning</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check text-secondary-light dark:text-secondary-dark mt-1 mr-2"></i>
+                                        <span>Container image scanning</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check text-secondary-light dark:text-secondary-dark mt-1 mr-2"></i>
+                                        <span>Policy enforcement gates</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 dark:bg-gray-600 p-4 rounded-lg">
+                            <h4 class="font-semibold mb-2 flex items-center">
+                                <i class="fas fa-chart-line mr-2 text-primary-light dark:text-primary-dark"></i>
+                                Runtime Phase
+                            </h4>
+                            <div class="grid md:grid-cols-3 gap-4 text-sm">
+                                <div>
+                                    <h5 class="font-medium mb-1">Protection</h5>
+                                    <ul class="space-y-1">
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check text-secondary-light dark:text-secondary-dark mt-1 mr-2 text-xs"></i>
+                                            <span>Web Application Firewall (WAF)</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check text-secondary-light dark:text-secondary-dark mt-1 mr-2 text-xs"></i>
+                                            <span>Runtime Application Self-Protection (RASP)</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h5 class="font-medium mb-1">Monitoring</h5>
+                                    <ul class="space-y-1">
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check text-secondary-light dark:text-secondary-dark mt-1 mr-2 text-xs"></i>
+                                            <span>Security Information and Event Management (SIEM)</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check text-secondary-light dark:text-secondary-dark mt-1 mr-2 text-xs"></i>
+                                            <span>Intrusion Detection Systems (IDS)</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h5 class="font-medium mb-1">Response</h5>
+                                    <ul class="space-y-1">
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check text-secondary-light dark:text-secondary-dark mt-1 mr-2 text-xs"></i>
+                                            <span>Automated incident response</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check text-secondary-light dark:text-secondary-dark mt-1 mr-2 text-xs"></i>
+                                            <span>Forensics and root cause analysis</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4">Get In Touch</h2>
+                <p class="max-w-2xl mx-auto">Interested in implementing DevSecOps in your organization? Let's discuss how we can make your pipelines more secure.</p>
+                <div class="w-20 h-1 bg-primary-light dark:bg-primary-dark mx-auto mt-4"></div>
+            </div>
+            
+            <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Contact Information</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <i class="fas fa-envelope text-primary-light dark:text-primary-dark mt-1 mr-4"></i>
+                            <div>
+                                <h4 class="font-medium">Email</h4>
+                                <p class="text-gray-600 dark:text-gray-300">security@securedevops.example</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fab fa-github text-primary-light dark:text-primary-dark mt-1 mr-4"></i>
+                            <div>
+                                <h4 class="font-medium">GitHub</h4>
+                                <p class="text-gray-600 dark:text-gray-300">github.com/securedevops</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fab fa-linkedin text-primary-light dark:text-primary-dark mt-1 mr-4"></i>
+                            <div>
+                                <h4 class="font-medium">LinkedIn</h4>
+                                <p class="text-gray-600 dark:text-gray-300">linkedin.com/in/securedevops</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8">
+                        <h3 class="text-xl font-semibold mb-4">Security Certifications</h3>
+                        <div class="flex flex-wrap gap-3">
+                            <span class="bg-gray-100 dark:bg-gray-700 px-3 py-1 rounded-full text-sm">CISSP</span>
+                            <span class="bg-gray-100 dark:bg-gray-700 px-3 py-1 rounded-full text-sm">CCSP</span>
+                            <span class="bg-gray-100 dark:bg-gray-700 px-3 py-1 rounded-full text-sm">AWS Security</span>
+                            <span class="bg-gray-100 dark:bg-gray-700 px-3 py-1 rounded-full text-sm">Certified Ethical Hacker</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg">
+                    <h3 class="text-xl font-semibold mb-6">Send a Message</h3>
+                    <form>
+                        <div class="mb-4">
+                            <label for="name" class="block mb-2 font-medium">Name</label>
+                            <input type="text" id="name" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-light dark:focus:ring-primary-dark bg-white dark:bg-gray-700">
+                        </div>
+                        <div class="mb-4">
+                            <label for="email" class="block mb-2 font-medium">Email</label>
+                            <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-light dark:focus:ring-primary-dark bg-white dark:bg-gray-700">
+                        </div>
+                        <div class="mb-4">
+                            <label for="message" class="block mb-2 font-medium">Message</label>
+                            <textarea id="message" rows="4" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-light dark:focus:ring-primary-dark bg-white dark:bg-gray-700"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-primary-light dark:bg-primary-dark text-white py-3 rounded-lg font-semibold hover:bg-opacity-90 transition">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 dark:bg-gray-900 text-gray-300 py-12">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center space-x-2 mb-6 md:mb-0">
+                    <i class="fas fa-shield-alt text-2xl text-primary-light dark:text-primary-dark"></i>
+                    <h2 class="text-xl font-bold">Secure<span class="text-primary-light dark:text-primary-dark">DevOps</span></h2>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="#" class="hover:text-white transition"><i class="fab fa-github text-xl"></i></a>
+                    <a href="#" class="hover:text-white transition"><i class="fab fa-linkedin text-xl"></i></a>
+                    <a href="#" class="hover:text-white transition"><i class="fab fa-twitter text-xl"></i></a>
+                    <a href="#" class="hover:text-white transition"><i class="fab fa-dev text-xl"></i></a>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center md:text-left">
+                <p>© 2023 SecureDevOps. All rights reserved.</p>
+                <p class="mt-2 text-sm">Building secure software through automation and best practices.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Dark mode toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+        });
+        
+        // Check for saved theme preference
+        if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            html.classList.add('dark');
+        } else {
+            html.classList.remove('dark');
+        }
+        
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    // Close mobile menu if open
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                    
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
